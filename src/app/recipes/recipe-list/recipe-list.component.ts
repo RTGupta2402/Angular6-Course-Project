@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
@@ -17,7 +18,7 @@ export class RecipeListComponent implements OnInit {
   //   new Recipe('Another Test Recipe', 'This is the description for another Test Recipe', 'https://static01.nyt.com/images/2015/10/07/dining/07HUMMUS/07HUMMUS-articleLarge-v2.jpg')
   // ];
 
-  constructor(private recipeSrv: RecipeService) { }
+  constructor(private recipeSrv: RecipeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.recipes = this.recipeSrv.getRecipes();
@@ -26,4 +27,8 @@ export class RecipeListComponent implements OnInit {
   // onSelectedRecipe(recipeInput: Recipe) {
   //   this.recipeWasSelected.emit(recipeInput);
   // }
+
+  onNewRecipe() {
+    this.router.navigate(['new'], {relativeTo: this.route});
+  }
 }
