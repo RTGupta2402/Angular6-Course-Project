@@ -1,8 +1,10 @@
 import { Ingredients } from './../shared/ingredients.model';
 import { EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
 export class ShoppingListService {
-    ingredientAdded = new EventEmitter<Ingredients[]>();
+    // ingredientAdded = new EventEmitter<Ingredients[]>();
+    ingredientAdded = new Subject<Ingredients[]>();
 
     private ingredients: Ingredients[] = [
         new Ingredients('Test Ingredient', 2),
@@ -16,7 +18,8 @@ export class ShoppingListService {
     addIngredient(ingredient: Ingredients){
         this.ingredients.push(ingredient);
         //emit an event to pass the new ingredients array copy to the shopping-list component.
-        this.ingredientAdded.emit(this.ingredients.slice());
+        // this.ingredientAdded.emit(this.ingredients.slice());
+        this.ingredientAdded.next(this.ingredients.slice());
     }
     
     addIngredients(ingredients: Ingredients[]) {
@@ -24,6 +27,7 @@ export class ShoppingListService {
         //     this.addIngredient(ingredient);
         // }
         this.ingredients.push(...ingredients);
-        this.ingredientAdded.emit(this.ingredients.slice())
+        // this.ingredientAdded.emit(this.ingredients.slice())
+        this.ingredientAdded.next(this.ingredients.slice());
     }
 }
